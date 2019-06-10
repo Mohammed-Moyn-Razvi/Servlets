@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+ <head>
+ <style>
+ body{
+ -webkit-animation: colorchange 15s infinite;
+ animation: colorchange 15s infinite;
+ }
+ @-webkit-keyframes colorchange {
+	o% {background: #00ff00;}
+	25% {background: #00ff80;}
+	50% {background: #00ffff;}
+	75% {background: #0080ff;}
+	100% {background: #0040ff;}
+}
+@keyframes colorchange {
+	o% {background: #00ff00;}
+	25% {background: #00ff80;}
+	50% {background: #00ffff;}
+	75% {background: #0080ff;}
+	100% {background: #0040ff;}
+}
+ </style>
+ </head>
+ <body>
+  <center>
+  <font size=7 color="black" ><i>Create Profile</i></font>
+  <hr size=5 color="red" width=400>
+  </center>
+  <form action="../createProfile" method="post">
+  <table align="center" >
+  <tr>
+  <td><b>User ID:</b></td>
+  <td><input type="text" name="id" placeholder=" " maxlength=10/></td>
+  </tr>
+   <tr>
+  <td><b>User Name:</b></td>
+  <td><input type="text" name="name" placeholder=" " maxlength=10/></td>
+  </tr>
+   <tr>
+  <td><b>Email:</b></td>
+  <td><input type="text" name="email" placeholder=" " maxlength=50/></td>
+  </tr>
+ <tr>
+   <tr>
+   <td><b>Password:</b></td>
+   <td><input type="password" name="pass" placeholder=" " maxlength=10/></td>
+  </tr>
+   <tr>
+ 
+  <td colspan=2 align="right">
+  <input type="submit" value="Submit" name="b1">
+  </td>
+  </tr>
+  </table>
+  </form>
+ </body>
+</html>
