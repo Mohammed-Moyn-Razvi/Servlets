@@ -14,16 +14,15 @@ import com.caps.dao.UserDAOJDBCImpl;
 import com.caps.services.UserServices;
 import com.caps.services.UserServicesImpl;
 
-@WebServlet("/loginServ")
-public class LoginServ extends HttpServlet {
+@WebServlet("/searchServ")
+public class SearchServ extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String userid = req.getParameter("userid");
-		String passwd = req.getParameter("password");
-		
+
 		UserServices us = new UserServicesImpl();
-		
-		User u = us.login(userid, passwd);
+
+		User u = us.searchUser(userid);
 		PrintWriter out = resp.getWriter();
 		if(u!=null) {
 			out.println(u);

@@ -12,12 +12,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.caps.beans.User;
-import com.caps.dao.UserDAOImpl;
+import com.caps.dao.UserDAOJDBCImpl;
+import com.caps.services.UserServices;
+import com.caps.services.UserServicesImpl;
 
 
 
 @WebServlet("/createProfile")
-public class CreateProfile extends HttpServlet {
+public class CreateProfileServ extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String userid = req.getParameter("id");
@@ -31,9 +33,9 @@ public class CreateProfile extends HttpServlet {
 		u.setEmail(email);
 		u.setPassword(passwd);
 
-		UserDAOImpl ui = new UserDAOImpl();
+		UserServices us = new UserServicesImpl();
 
-		boolean b=ui.createProfile(u);
+		boolean b=us.createProfile(u);
 
 		PrintWriter out = resp.getWriter();
 

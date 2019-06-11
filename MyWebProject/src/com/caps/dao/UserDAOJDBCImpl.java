@@ -8,8 +8,8 @@ import java.sql.SQLException;
 
 import com.caps.beans.User;
 
-public class UserDAOImpl implements UserInfoDAO{
-	public UserDAOImpl() {
+public class UserDAOJDBCImpl implements UserInfoDAO{
+	public UserDAOJDBCImpl() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
@@ -33,15 +33,12 @@ public class UserDAOImpl implements UserInfoDAO{
 			int count = pstmt.executeUpdate();
 
 			if(count > 0) {
-				System.out.println("Profile Created....");
 				return true;
 			}else {
-				System.out.println("Something Went Worng....");
 				return false;
 			}
 		}
 		catch(Exception e) {
-			System.out.println("Something Went Worng....");
 			e.printStackTrace();
 			return false; 
 		}
@@ -72,5 +69,56 @@ public class UserDAOImpl implements UserInfoDAO{
 		}
 		return null;
 	}
+	@Override
+	public boolean updateEmail(String userid, String email) {
+		String sql = "UPDATE users_info SET email=?"
+				+ " WHERE user_id=?";
+		try(Connection con = DriverManager.getConnection(DBURL);
+				PreparedStatement pstmt = con.prepareStatement(sql)){
+			User u = new User();
+			pstmt.setString(2, userid);
+			pstmt.setString(1, email);
 
+			int count = pstmt.executeUpdate();
+			if(count>0) {
+				return true;
+			}else {
+				return false;
+			}
+		}catch (Exception e) {
+			System.out.println("Something went Worng...");
+			e.printStackTrace();
+		}
+		return false;
+	}
+	@Override
+	public User searchServ(String userid) {
+		String sql = "SELECT * FROM users_info"
+				+ " WHERE user_id=?";
+		try(Connection con = DriverManager.getConnection(DBURL);
+				PreparedStatement pstmt = con.prepareStatement(sql)){
+			User u = new User();
+			pstmt.setString(1, userid);
+			try(ResultSet rs = pstmt.executeQuery();){
+				if(rs.next()) {
+					u.setUid(rs.getString("user_id"));
+					u.setUname(rs.getString("user_name"));
+					u.setEmail(rs.getString("email"));
+					return u;
+				}else {
+					System.out.println("Invalid User ID....");
+				}
+			}
+
+		} catch (Exception e) {
+			System.out.println("Something went Worng...");
+			e.printStackTrace();
+		}
+		return null;
+	}
+	/*@Override
+	public boolean deleteUser(String userid, String passwd) {
+
+		return false;
+	}*/
 }
